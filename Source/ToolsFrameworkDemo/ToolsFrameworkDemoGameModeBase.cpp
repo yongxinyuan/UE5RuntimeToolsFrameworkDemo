@@ -17,20 +17,26 @@
 
 AToolsFrameworkDemoGameModeBase::AToolsFrameworkDemoGameModeBase()
 {
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::AToolsFrameworkDemoGameModeBase() Prev"));
 	PrimaryActorTick.bStartWithTickEnabled = true;
 	PrimaryActorTick.bCanEverTick = true;
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::AToolsFrameworkDemoGameModeBase() Post"));
 }
 
 
 void AToolsFrameworkDemoGameModeBase::StartPlay()
 {
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::StartPlay() Prev"));
 	Super::StartPlay();
 	InitializeToolsSystem();
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::StartPlay() Post"));
 }
 
 
 void AToolsFrameworkDemoGameModeBase::InitializeToolsSystem()
 {
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::InitializeToolsSystem() Prev"));
+
 	UWorld* World = GetWorld();
 	UGameInstance* GameInstance = GetGameInstance();
 	check(World && GameInstance);
@@ -50,11 +56,15 @@ void AToolsFrameworkDemoGameModeBase::InitializeToolsSystem()
 	SceneSystem->SetCurrentTransactionsAPI(ToolsSystem->GetTransactionsAPI());
 
 	RegisterTools();
+
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::InitializeToolsSystem() Post"));
 }
 
 
 void AToolsFrameworkDemoGameModeBase::RegisterTools()
 {
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::RegisterTools() Prev"));
+
 	UInteractiveToolManager* ToolManager = ToolsSystem->ToolsContext->ToolManager;
 
 	auto AddPrimitiveToolBuilder = NewObject<UAddPrimitiveToolBuilder>();
@@ -85,13 +95,19 @@ void AToolsFrameworkDemoGameModeBase::RegisterTools()
 
 	auto MeshBooleanToolBuilder = NewObject<URuntimeMeshBooleanToolBuilder>();
 	ToolManager->RegisterToolType("MeshBoolean", MeshBooleanToolBuilder);
+
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::RegisterTools() Post"));
 }
 
 
 void AToolsFrameworkDemoGameModeBase::ShutdownToolsSystem()
 {
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::ShutdownToolsSystem() Prev"));
+
 	// TODO: implement this
 	check(false);
+
+	UE_LOG(LogTemp, Log, TEXT("AToolsFrameworkDemoGameModeBase::ShutdownToolsSystem() Post"));
 }
 
 

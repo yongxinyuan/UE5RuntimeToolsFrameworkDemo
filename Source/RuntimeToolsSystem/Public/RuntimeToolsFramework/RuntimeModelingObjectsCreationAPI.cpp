@@ -8,6 +8,8 @@ using namespace UE::Geometry;
 
 URuntimeModelingObjectsCreationAPI* URuntimeModelingObjectsCreationAPI::Register(UInteractiveToolsContext* ToolsContext)
 {
+
+	UE_LOG(LogTemp, Log, TEXT("URuntimeModelingObjectsCreationAPI::Register()"));
 	check(ToolsContext);
 
 	if ( URuntimeModelingObjectsCreationAPI* CreationAPI = ToolsContext->ContextObjectStore->FindContext<URuntimeModelingObjectsCreationAPI>() )
@@ -22,6 +24,8 @@ URuntimeModelingObjectsCreationAPI* URuntimeModelingObjectsCreationAPI::Register
 
 bool URuntimeModelingObjectsCreationAPI::Deregister(UInteractiveToolsContext* ToolsContext)
 {
+	UE_LOG(LogTemp, Log, TEXT("URuntimeModelingObjectsCreationAPI::Deregister()"));
+
 	check(ToolsContext);
 
 	if (URuntimeModelingObjectsCreationAPI* FoundAPI = ToolsContext->ContextObjectStore->FindContext<URuntimeModelingObjectsCreationAPI>() )
@@ -35,6 +39,8 @@ bool URuntimeModelingObjectsCreationAPI::Deregister(UInteractiveToolsContext* To
 
 FCreateMeshObjectResult URuntimeModelingObjectsCreationAPI::CreateMeshObject(const FCreateMeshObjectParams& CreateMeshParams)
 {
+	UE_LOG(LogTemp, Log, TEXT("URuntimeModelingObjectsCreationAPI::CreateMeshObject()"));
+
 	// create new SceneObject
 	URuntimeMeshSceneObject* SceneObject = URuntimeMeshSceneSubsystem::Get()->CreateNewSceneObject();
 
@@ -61,6 +67,8 @@ FCreateMeshObjectResult URuntimeModelingObjectsCreationAPI::CreateMeshObject(con
 
 FCreateTextureObjectResult URuntimeModelingObjectsCreationAPI::CreateTextureObject(const FCreateTextureObjectParams& CreateTexParams)
 {
+	UE_LOG(LogTemp, Log, TEXT("URuntimeModelingObjectsCreationAPI::CreateTextureObject()"));
+
 	check(false);		// not supported!
 	return FCreateTextureObjectResult{ ECreateModelingObjectResult::Failed_InvalidTexture };
 }

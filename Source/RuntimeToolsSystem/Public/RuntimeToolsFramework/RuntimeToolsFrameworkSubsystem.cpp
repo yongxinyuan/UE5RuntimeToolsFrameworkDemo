@@ -34,27 +34,38 @@ class FRuntimeToolsContextQueriesImpl : public IToolsContextQueriesAPI
 public:
 	FRuntimeToolsContextQueriesImpl(UInteractiveToolsContext* InContext, UWorld* InWorld)
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::FRuntimeToolsContextQueriesImpl()"));
+
 		ToolsContext = InContext;
 		TargetWorld = InWorld;
 	}
 
 	virtual void SetContextActor(AToolsContextActor* ContextActorIn)
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::SetContextActor()"));
+
 		ContextActor = ContextActorIn;
 	}
 
 	void UpdateActiveViewport(FViewport* Viewport)
 	{
+		// Call every tick in RuntimeToolsFrameworkSubsystem::Tick()
+		// UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::UpdateActiveViewport()"));
+
 		ActiveViewport = Viewport;
 	}
 
 	virtual UWorld* GetCurrentEditingWorld() const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetCurrentEditingWorld()"));
+
 		return TargetWorld;
 	}
 
 	virtual void GetCurrentSelectionState(FToolBuilderState& StateOut) const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetCurrentSelectionState()"));
+
 		StateOut.ToolManager = ToolsContext->ToolManager;
 		StateOut.TargetManager = ToolsContext->TargetManager;
 		StateOut.GizmoManager = ToolsContext->GizmoManager;
@@ -70,6 +81,8 @@ public:
 
 	virtual void GetCurrentViewState(FViewCameraState& StateOut) const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetCurrentViewState()"));
+
 		if (!ContextActor)
 		{
 			return;
@@ -92,26 +105,36 @@ public:
 
 	virtual EToolContextCoordinateSystem GetCurrentCoordinateSystem() const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetCurrentCoordinateSystem()"));
+
 		return URuntimeToolsFrameworkSubsystem::Get()->GetCurrentCoordinateSystem();
 	}
 
 	virtual FToolContextSnappingConfiguration GetCurrentSnappingSettings() const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetCurrentSnappingSettings()"));
+
 		return FToolContextSnappingConfiguration();
 	}
 
 	virtual UMaterialInterface* GetStandardMaterial(EStandardToolContextMaterials MaterialType) const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetStandardMaterial()"));
+
 		return UMaterial::GetDefaultMaterial(MD_Surface);
 	}
 
 	virtual FViewport* GetHoveredViewport() const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetHoveredViewport()"));
+
 		return ActiveViewport;
 	}
 
 	virtual FViewport* GetFocusedViewport() const override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextQueriesImpl::GetFocusedViewport()"));
+
 		return ActiveViewport;
 	}
 
@@ -143,18 +166,24 @@ public:
 
 	virtual void BeginUndoTransaction(const FText& Description) override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextTransactionImpl::BeginUndoTransaction()"));
+
 		URuntimeToolsFrameworkSubsystem::Get()->SceneHistory->BeginTransaction(Description);
 		bInTransaction = true;
 	}
 
 	virtual void EndUndoTransaction() override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextTransactionImpl::EndUndoTransaction()"));
+
 		URuntimeToolsFrameworkSubsystem::Get()->SceneHistory->EndTransaction();
 		bInTransaction = false;
 	}
 
 	virtual void AppendChange(UObject* TargetObject, TUniquePtr<FToolCommandChange> Change, const FText& Description) override
 	{
+		UE_LOG(LogTemp, Log, TEXT("FRuntimeToolsContextTransactionImpl::AppendChange()"));
+
 		bool bCloseTransaction = false;
 		if (!bInTransaction)
 		{
