@@ -39,6 +39,7 @@ public:
 	//
 	//
 	virtual void Setup() override;
+	virtual void OnTick(float DeltaTime) override;
 
 	//
 	// IClickSequenceBehaviorTarget

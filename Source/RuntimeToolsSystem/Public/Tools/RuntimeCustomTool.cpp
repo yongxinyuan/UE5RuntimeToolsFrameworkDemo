@@ -37,6 +37,11 @@ void URuntimeCustomTool::Setup()
 	AddInputBehavior(MouseBehavior);
 }
 
+void URuntimeCustomTool::OnTick(float DeltaTime)
+{
+
+}
+
 void URuntimeCustomTool::OnBeginSequencePreview(const FInputDeviceRay& ClickPos)
 {
 	UE_LOG(LogTemp, Log, TEXT("URuntimeCustomTool::OnBeginSequencePreview()"));
@@ -75,7 +80,7 @@ bool URuntimeCustomTool::RequestAbortClickSequence()
 {
 	UE_LOG(LogTemp, Log, TEXT("URuntimeCustomTool::RequestAbortClickSequence()"));
 
-	return true;
+	return false;
 }
 
 void URuntimeCustomTool::OnUpdateModifierState(int ModifierID, bool bIsOn)
