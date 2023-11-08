@@ -8,6 +8,7 @@
 #include "MeshVertexSculptTool.h"
 #include "PlaneCutTool.h"
 
+#include "Tools/RuntimeCustomTool.h"
 #include "Tools/RuntimeDrawPolygonTool.h"
 #include "Tools/RuntimeDynamicMeshSculptTool.h"
 #include "Tools/RuntimeRemeshMeshTool.h"
@@ -70,6 +71,9 @@ void AToolsFrameworkDemoGameModeBase::RegisterTools()
 	auto AddPrimitiveToolBuilder = NewObject<UAddPrimitiveToolBuilder>();
 	AddPrimitiveToolBuilder->ShapeType = UAddPrimitiveToolBuilder::EMakeMeshShapeType::Box;
 	ToolManager->RegisterToolType("AddPrimitiveBox", AddPrimitiveToolBuilder);
+
+	auto RuntimeCustomToolBuilder = NewObject<URuntimeCustomToolBuilder>();
+	ToolManager->RegisterToolType("RuntimeCustomTool", RuntimeCustomToolBuilder);
 
 	auto DrawPolygonToolBuilder = NewObject<URuntimeDrawPolygonToolBuilder>();
 	ToolManager->RegisterToolType("DrawPolygon", DrawPolygonToolBuilder);
